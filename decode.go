@@ -541,8 +541,10 @@ func (d *decoder) alias(n *Node, out reflect.Value) (good bool) {
 var zeroValue reflect.Value
 
 func resetMap(out reflect.Value) {
-	for _, k := range out.MapKeys() {
-		out.SetMapIndex(k, zeroValue)
+	if out.Kind() == reflect.Map {
+		for _, k := range out.MapKeys() {
+			out.SetMapIndex(k, zeroValue)
+		}
 	}
 }
 
